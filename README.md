@@ -23,7 +23,7 @@ A high-performance C++ library implementing a parallelized Fast Fourier Transfor
 
 ### How to use in your project
 
-ThreadHive is easy to install. You just need to clone the repository and compile the source code:
+[ThreadHive](https://github.com/patrzykat/ThreadHive.git) is easy to install. You just need to clone the repository and compile the source code:
 
 ```bash
 # clone the repository
@@ -31,7 +31,7 @@ git clone https://github.com/patrzykat/fftlib.git
 
 # add and compile ThreadHive dependency
 cd fftlib
-git clone https://github.com/yourusername/ThreadHive.git
+git clone https://github.com/patrzykat/ThreadHive.git
 cd ThreadHive
 make
 
