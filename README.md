@@ -88,6 +88,10 @@ Here's what each part of the plot means:
 
 A common strategy is to look for peaks in the y-axis. These peaks represent the presence and strength of certain frequencies in your time series.
 
+### Example interpretation (daily weather data)
+
+There is a dataset that contains 1024 days of weather data. The results show a spike around 3. This makes sense because there are approximately 3 cycles of 365 days in the sample of 1024 days. 
+
 ## Performance and Optimization
 
 ### Cooley-Tukey Algorithm (Recursive)
