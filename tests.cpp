@@ -8,8 +8,8 @@
 #include <sstream>
 
 std::vector<Complex> create_example_time_series() {
-    const int N = pow(2, 8);
-    // const int N = pow(2, 22);
+    // const int N = pow(2, 8);
+    const int N = pow(2, 22);
     // const double PI = 3;
     const double PI = std::acos(-1);
     std::vector<Complex> a(N);
@@ -126,7 +126,7 @@ int main() {
     std::cout << "fft_parallel_chunking took " << elapsed.count() << " seconds." << std::endl;
 
     // Print the magnitudes of the first N/2 frequencies
-    for(int i = 0; i < N / 2; i++) {
+    for(int i = 0; i < std::min(128, N / 2); i++) {
         std::cout << i << ": " << std::sqrt(a1[i].real * a1[i].real + a1[i].imag * a1[i].imag) << std::endl;
     }
 

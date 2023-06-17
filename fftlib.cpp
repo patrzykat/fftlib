@@ -84,7 +84,6 @@ void fft_iterative(std::vector<Complex>& a) {
     // iterative FFT
     for (int s = 2; s <= n; s *= 2) {
         Complex wn(cos(2.0 * M_PI / s), sin(2.0 * M_PI / s));
-        auto start = std::chrono::high_resolution_clock::now();
         for (int i = 0; i < n; i += s) {
             Complex w(1);
             for (int j = 0; j < s/2; ++j) {
@@ -95,9 +94,6 @@ void fft_iterative(std::vector<Complex>& a) {
                 w = w * wn;
             }
         }
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> diff = end - start;
-        std::cout << "Time: " << s << " " << diff.count() << " seconds\n";
     }
 }
 
@@ -121,7 +117,6 @@ void fft_parallel_butterfly(std::vector<Complex>& a, ThreadHive& pool) {
     // iterative FFT
     for (int s = 2; s <= n; s *= 2) {
         Complex wn(cos(2.0 * M_PI / s), sin(2.0 * M_PI / s));
-        auto start = std::chrono::high_resolution_clock::now();
         for (int i = 0; i < n; i += s) {
             // Schedule a task to perform a group of butterfly operations
             pool.enqueue([&, s, wn, i]() {
@@ -137,10 +132,6 @@ void fft_parallel_butterfly(std::vector<Complex>& a, ThreadHive& pool) {
         }
 
         pool.wait_all();
-        
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> diff = end - start;
-        std::cout << "Time: " << s << " " << diff.count() << " seconds\n";
     }
 }
 
@@ -164,8 +155,6 @@ void fft_parallel_chunking(std::vector<Complex>& a, ThreadHive& pool) {
     // iterative FFT
     for (int s = 2; s <= n; s *= 2) {
         Complex wn(cos(2.0 * M_PI / s), sin(2.0 * M_PI / s));
-
-        auto start = std::chrono::high_resolution_clock::now();
         
         // Try to keep the work done by each thread roughly equal
         int chunkSize = n / 4;
@@ -187,10 +176,6 @@ void fft_parallel_chunking(std::vector<Complex>& a, ThreadHive& pool) {
         }
 
         pool.wait_all();
-
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> diff = end - start;
-        std::cout << "Time: " << s << " " << diff.count() << " seconds\n";
     }
 }
 
